@@ -46,9 +46,9 @@ export const sendMessagesReducer = (state = initialState, action) => {
         ...state,
         form: {
           ...state.form,
-          message: state.form.message + action.code
-        }
-      }
+          message: state.form.message + action.code,
+        },
+      };
     }
     case MESSAGES_SEND_FORM_SUBMIT: {
       return {

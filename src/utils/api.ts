@@ -8,9 +8,8 @@ function checkResponse(res, type) {
   const contentType = res.headers.get("content-type");
   if (status && contentType.includes(type)) {
     return res.json();
-  } else {
-    return Promise.reject(`Ошибка: ${res.status}`);
   }
+  return Promise.reject(new Error(`Ошибка: ${res.status}`));
 }
 
 export { config, checkResponse };

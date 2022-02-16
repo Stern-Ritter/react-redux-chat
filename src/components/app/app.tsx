@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ChatList from "../chat-list/chat-list";
 import ChatForm from "../chat-form/chat-form";
@@ -19,7 +19,9 @@ function App() {
       {hasError ? (
         <>
           <h1>Что-то пошло не так...</h1>
-          <p>В приложении произошла ошибка. Пожалуйста, перезагрузите страницу.</p>
+          <p>
+            В приложении произошла ошибка. Пожалуйста, перезагрузите страницу.
+          </p>
         </>
       ) : (
         <>

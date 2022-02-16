@@ -21,7 +21,7 @@ export function getMessages() {
       const messages = Object.values(data).map((message) => ({
         ...message,
         nickname: message.nickname || "Неизвестный",
-        date: isNaN(new Date(message.date))
+        date: Number.isNaN(new Date(message.date))
           ? "Неизвестно"
           : new Date(message.date).toLocaleString("ru-RU"),
       }));

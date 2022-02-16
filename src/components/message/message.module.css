@@ -22,7 +22,7 @@
 .name {
   composes: element;
   margin-right: 15px;
-  color: #3C39EC;
+  color: #3c39ec;
 }
 
 .message {

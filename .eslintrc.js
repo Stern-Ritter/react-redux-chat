@@ -37,6 +37,10 @@ module.exports = {
     "import/no-extraneous-dependencies": "off",
     "class-methods-use-this": "off",
     "@typescript-eslint/ban-ts-comment": "off",
+    "no-underscore-dangle": [
+      "error",
+      { allow: ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] },
+    ],
   },
   settings: {
     react: {
