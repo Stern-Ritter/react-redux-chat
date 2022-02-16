@@ -1,15 +1,16 @@
-const { resolve } = require("path");
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: {
-    main: resolve(__dirname, "./src/index.tsx"),
+    main: path.resolve(__dirname, "./src/index.tsx"),
   },
   output: {
     filename: "main.js",
-    path: resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "dist"),
     clean: true,
     environment: {
       arrowFunction: false,
@@ -40,7 +41,7 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, "dist"),
+      directory: path.resolve(__dirname, "dist"),
     },
     compress: true,
     port: 9000,
