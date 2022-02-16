@@ -4,9 +4,47 @@ import {
   MESSAGES_SEND_FORM_SUBMIT_SUCCESS,
   MESSAGES_SEND_FORM_SUBMIT_FAILED,
   MESSAGES_SEND_FORM_TEXT_INPUT_ENTER,
-  MESSAGES_SEND_FORM_TEXT_INPUT_LEAVE,
   MESSAGES_SEND_FORM_ADD_EMOJI,
 } from "../actions/chat-form";
+
+interface IMESSAGES_SEND_FORM_SET_VALUE {
+  type: "MESSAGES_SEND_FORM_SET_VALUE";
+  payload: {
+    field: string;
+    value: string;
+  };
+}
+
+interface IMESSAGES_SEND_FORM_SUBMIT {
+  type: "MESSAGES_SEND_FORM_SUBMIT";
+}
+
+interface IMESSAGES_SEND_FORM_SUBMIT_SUCCESS {
+  type: "MESSAGES_SEND_FORM_SUBMIT_SUCCESS";
+}
+
+interface IMESSAGES_SEND_FORM_SUBMIT_FAILED {
+  type: "MESSAGES_SEND_FORM_SUBMIT_FAILED";
+}
+
+interface IMESSAGES_SEND_FORM_TEXT_INPUT_ENTER {
+  type: "MESSAGES_SEND_FORM_TEXT_INPUT_ENTER";
+}
+
+interface IMESSAGES_SEND_FORM_ADD_EMOJI {
+  type: "MESSAGES_SEND_FORM_ADD_EMOJI";
+  payload: {
+    code: string;
+  };
+}
+
+type MESSAGES_SEND_FORM_ACTION =
+  | IMESSAGES_SEND_FORM_SET_VALUE
+  | IMESSAGES_SEND_FORM_SUBMIT
+  | IMESSAGES_SEND_FORM_SUBMIT_SUCCESS
+  | IMESSAGES_SEND_FORM_SUBMIT_FAILED
+  | IMESSAGES_SEND_FORM_TEXT_INPUT_ENTER
+  | IMESSAGES_SEND_FORM_ADD_EMOJI;
 
 const initialState = {
   form: {
@@ -18,7 +56,10 @@ const initialState = {
   textInputEnter: false,
 };
 
-export const sendMessagesReducer = (state = initialState, action) => {
+export const sendMessagesReducer = (
+  state = initialState,
+  action: MESSAGES_SEND_FORM_ACTION
+) => {
   switch (action.type) {
     case MESSAGES_SEND_FORM_TEXT_INPUT_ENTER: {
       return {
@@ -26,18 +67,13 @@ export const sendMessagesReducer = (state = initialState, action) => {
         textInputEnter: true,
       };
     }
-    case MESSAGES_SEND_FORM_TEXT_INPUT_LEAVE: {
-      return {
-        ...state,
-        textInputEnter: false,
-      };
-    }
+
     case MESSAGES_SEND_FORM_SET_VALUE: {
       return {
         ...state,
         form: {
           ...state.form,
-          [action.field]: action.value,
+          [action.payload.field]: action.payload.value,
         },
       };
     }
@@ -46,7 +82,7 @@ export const sendMessagesReducer = (state = initialState, action) => {
         ...state,
         form: {
           ...state.form,
-          message: state.form.message + action.code,
+          message: state.form.message + action.payload.code,
         },
       };
     }

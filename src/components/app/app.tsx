@@ -5,9 +5,10 @@ import ChatForm from "../chat-form/chat-form";
 import AppHeader from "../app-header/app-header";
 import { getMessages } from "../../services/actions";
 import styles from "./app.module.css";
+import { State } from "../../services/store/store";
 
 function App() {
-  const { hasError } = useSelector((store) => store.messages);
+  const { hasError } = useSelector((store: State) => store.messages);
   const dispatch = useDispatch();
 
   useEffect(() => {

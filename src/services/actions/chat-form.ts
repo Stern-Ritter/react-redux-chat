@@ -1,5 +1,5 @@
 import { config, checkResponse } from "../../utils/api";
-import { getMessages } from ".";
+import { AppDispatch } from "../store/store";
 
 export const MESSAGES_SEND_FORM_SET_VALUE = "MESSAGES_SEND_FORM_SET_VALUE";
 export const MESSAGES_SEND_FORM_SUBMIT = "MESSAGES_SEND_FORM_SUBMIT";
@@ -8,19 +8,23 @@ export const MESSAGES_SEND_FORM_SUBMIT_SUCCESS =
 export const MESSAGES_SEND_FORM_SUBMIT_FAILED =
   "MESSAGES_SEND_FORM_SUBMIT_FAILED";
 export const MESSAGES_SEND_FORM_TEXT_INPUT_ENTER =
-  " MESSAGES_SEND_FORM_TEXT_INPUT_ENTER";
-export const MESSAGES_SEND_FORM_TEXT_INPUT_LEAVE =
-  "MESSAGES_SEND_FORM_TEXT_INPUT_LEAVE";
+  "MESSAGES_SEND_FORM_TEXT_INPUT_ENTER";
 export const MESSAGES_SEND_FORM_ADD_EMOJI = "MESSAGES_SEND_FORM_ADD_EMOJI";
 
-export const setSendMessageFromValue = (field, value) => ({
+export const setSendMessageFromValue = ({
+  field,
+  value,
+}: {
+  field: string;
+  value: string;
+}) => ({
   type: MESSAGES_SEND_FORM_SET_VALUE,
   field,
   value,
 });
 
-export function sendMessage(message) {
-  return async function (dispatch) {
+export function sendMessage(message: Partial<MessageContent>) {
+  return async function (dispatch: AppDispatch) {
     dispatch({ type: MESSAGES_SEND_FORM_SUBMIT });
     try {
       const res = await fetch(
@@ -38,8 +42,11 @@ export function sendMessage(message) {
         }
       );
       const success = await checkResponse(res, "application/json");
-      if (success) dispatch({ type: MESSAGES_SEND_FORM_SUBMIT_SUCCESS });
-      dispatch(getMessages());
+      if (success) {
+        dispatch({ type: MESSAGES_SEND_FORM_SUBMIT_SUCCESS });
+      } else {
+        dispatch({ type: MESSAGES_SEND_FORM_SUBMIT_FAILED });
+      }
     } catch (err) {
       dispatch({ type: MESSAGES_SEND_FORM_SUBMIT_FAILED });
     }

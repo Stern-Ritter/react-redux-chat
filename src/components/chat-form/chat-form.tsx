@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setSendMessageFromValue,
@@ -6,13 +6,16 @@ import {
   MESSAGES_SEND_FORM_TEXT_INPUT_ENTER,
   MESSAGES_SEND_FORM_ADD_EMOJI,
 } from "../../services/actions/chat-form";
+import { State } from "../../services/store/store";
 import EmojiesList from "../emojies-list/emojies-list";
 import styles from "./chat-form.module.css";
 
 function ChatForm() {
-  const { name, message } = useSelector((store) => store.sendMessages.form);
+  const { name, message } = useSelector(
+    (store: State) => store.sendMessages.form
+  );
   const { sendMessageRequest, sendMessageFailed, textInputEnter } = useSelector(
-    (store) => store.sendMessages
+    (store: State) => store.sendMessages
   );
   const dispatch = useDispatch();
 
@@ -20,20 +23,24 @@ function ChatForm() {
     dispatch({ type: MESSAGES_SEND_FORM_TEXT_INPUT_ENTER });
   };
 
-  const onEmojiClick = (evt) => {
-    if (evt.target.tagName === "SPAN") {
+  const onEmojiClick = (evt: React.MouseEvent<HTMLElement>) => {
+    const element = evt.target as HTMLElement;
+    if (element.tagName === "SPAN") {
       dispatch({
         type: MESSAGES_SEND_FORM_ADD_EMOJI,
-        code: evt.target.textContent,
+        payload: { code: element.textContent },
       });
     }
   };
 
-  const onFormChange = (evt) => {
-    dispatch(setSendMessageFromValue(evt.target.name, evt.target.value));
+  const onFormChange = (evt: FormEvent) => {
+    const input = evt.target as HTMLInputElement;
+    dispatch(
+      setSendMessageFromValue({ field: input.name, value: input.value })
+    );
   };
 
-  const onFormSubmit = (evt) => {
+  const onFormSubmit = (evt: FormEvent) => {
     evt.preventDefault();
     dispatch(sendMessage({ nickname: name, message }));
   };
@@ -57,7 +64,6 @@ function ChatForm() {
       </label>
       <textarea
         className={styles["text-area"]}
-        type="text"
         onFocus={onEnter}
         onChange={onFormChange}
         value={message}

@@ -3,10 +3,10 @@ const config = {
   firebaseCollection: "messages.json",
 };
 
-function checkResponse(res, type) {
+function checkResponse(res: Response, type: string) {
   const status = res.ok;
   const contentType = res.headers.get("content-type");
-  if (status && contentType.includes(type)) {
+  if (status && contentType?.includes(type)) {
     return res.json();
   }
   return Promise.reject(new Error(`Ошибка: ${res.status}`));

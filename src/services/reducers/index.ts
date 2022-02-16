@@ -6,13 +6,34 @@ import {
 } from "../actions";
 import { sendMessagesReducer } from "./chat-form";
 
+interface IGET_MESSAGES {
+  type: "GET_MESSAGES";
+}
+
+interface IGET_MESSAGES_SUCCESS {
+  type: "GET_MESSAGES_SUCCESS";
+  payload: MessageContent[];
+}
+
+interface IGET_MESSAGES_FAILED {
+  type: "GET_MESSAGES_FAILED";
+}
+
+type GET_MESSAGES_ACTION =
+  | IGET_MESSAGES
+  | IGET_MESSAGES_SUCCESS
+  | IGET_MESSAGES_FAILED;
+
 const messagesInitialState = {
   loading: false,
   hasError: false,
-  data: [],
+  data: [] as MessageContent[],
 };
 
-const messagesReducer = (state = messagesInitialState, action) => {
+const messagesReducer = (
+  state = messagesInitialState,
+  action: GET_MESSAGES_ACTION
+) => {
   switch (action.type) {
     case GET_MESSAGES: {
       return {
@@ -25,7 +46,7 @@ const messagesReducer = (state = messagesInitialState, action) => {
       return {
         ...state,
         loading: false,
-        data: action.data.reverse(),
+        data: action.payload.reverse(),
       };
     }
     case GET_MESSAGES_FAILED: {
