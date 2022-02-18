@@ -29,7 +29,7 @@ function EmojiesList(props: EmojiesListProps) {
   ]);
 
   return (
-    <div className={styles} onClick={clickHandler}>
+    <div className={styles} onClick={clickHandler} data-testid="emojies-list">
       {emojes.map((code, idx) => (
         <Emoji code={code} key={idx} />
       ))}

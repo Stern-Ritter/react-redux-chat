@@ -23,14 +23,14 @@ function ChatList() {
   }, []);
 
   return (
-    <>
+    <div data-testid="chat-list">
       <h1 className={style.title}>Сообщения: </h1>
       <ul className={style.list}>
         {data.map((content, idx) => (
           <Message key={idx} content={content}></Message>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React, { useState, FormEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setSendMessageFromValue,
@@ -46,7 +46,11 @@ function ChatForm() {
   };
 
   return (
-    <form onSubmit={onFormSubmit} className={styles.form}>
+    <form
+      onSubmit={onFormSubmit}
+      className={styles.form}
+      data-testid="chat-form"
+    >
       <label className={styles.label} htmlFor="name">
         Имя:
       </label>
@@ -69,6 +73,7 @@ function ChatForm() {
         value={message}
         name="message"
         id="message"
+        data-testid="text-area"
       />
 
       {sendMessageFailed && (
