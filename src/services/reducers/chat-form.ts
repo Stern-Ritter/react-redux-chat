@@ -48,7 +48,7 @@ type MESSAGES_SEND_FORM_ACTION =
 
 const initialState = {
   form: {
-    name: "Аноним",
+    name: "Roland Deschain",
     message: "",
   },
   sendMessageRequest: false,

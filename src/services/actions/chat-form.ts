@@ -19,8 +19,7 @@ export const setSendMessageFromValue = ({
   value: string;
 }) => ({
   type: MESSAGES_SEND_FORM_SET_VALUE,
-  field,
-  value,
+  payload: { field, value },
 });
 
 export function sendMessage(message: Partial<MessageContent>) {
