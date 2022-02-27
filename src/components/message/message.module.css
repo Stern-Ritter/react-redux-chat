@@ -1,0 +1,39 @@
+.item {
+  display: flex;
+  width: 100%;
+  padding: 20px 10px;
+  box-sizing: border-box;
+  box-shadow: inset 0px -1px 0px rgba(41, 41, 41, 0.13);
+}
+
+.text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #292929;
+}
+
+.element {
+  composes: text;
+  display: block;
+}
+
+.name {
+  composes: element;
+  margin-right: 15px;
+  color: #3c39ec;
+}
+
+.message {
+  composes: element;
+  margin-right: 15px;
+  flex-grow: 1;
+  word-break: break-all;
+}
+
+.data {
+  composes: element;
+  font-size: 8px;
+  line-height: 10px;
+}
